@@ -57,6 +57,13 @@ Add_key () {
 	chown admin.admin /home/admin/.ssh/ -R
 }
 
+#更改颜色
+Change_color () {
+	sed -i '41s@^@#@' /etc/bashrc
+	echo '[ "$PS1" = "\\s-\\v\\\$ " ] && PS1="[\[\e[36;1m\]\u\[\e[0m\]\[\e[32;1m\]@\H\[\e[0m\] \[\e[31;1m\]\W\[\e[0m\]]\\$ "' >> /etc/bashrc
+}
+
+
 # 调整内核
 Kernel () {
 	cat >> /etc/sysctl.conf << -EOF
@@ -200,6 +207,7 @@ Virtual () {
     Shut_service
     Kernel
     Ntp_crond
+    Change_color
     Config_sshd
     History
     Jarctl
